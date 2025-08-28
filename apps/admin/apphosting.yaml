@@ -1,0 +1,10 @@
+env:
+  - variable: APP_TYPE
+    value: "admin"
+  - variable: NODE_ENV
+    value: "production"
+
+runConfig:
+  cpu: 1
+  memoryMiB: 512
+  concurrency: 100

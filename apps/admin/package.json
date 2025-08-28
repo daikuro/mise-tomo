@@ -1,0 +1,14 @@
+{
+	"name": "misetomo-admin",
+	"private": true,
+	"version": "0.0.1",
+	"type": "module",
+	"scripts": {
+		"dev": "echo 'Admin app not yet implemented'",
+		"build": "echo 'Admin app not yet implemented'",
+		"preview": "echo 'Admin app not yet implemented'"
+	},
+	"dependencies": {
+		"@misetomo/shared": "*"
+	}
+}
