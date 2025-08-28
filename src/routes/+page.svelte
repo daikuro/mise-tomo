@@ -62,7 +62,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center">
         <h1 class="text-4xl md:text-6xl font-bold mb-6">
-          地域で見つかる、短期のお仕事
+          地域で見つかる、スキマ時間のお仕事
         </h1>
         <p class="text-xl mb-10">
           空いた時間を有効活用。今すぐ働ける仕事を見つけよう
