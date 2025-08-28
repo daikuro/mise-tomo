@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Search, MapPin, Clock, Shield, Users, TrendingUp, Briefcase, Star, CheckCircle, MessageCircle, DollarSign } from 'lucide-svelte';
+  import { Search, MapPin, Clock, Users, TrendingUp, Briefcase, Star, CheckCircle, MessageCircle, DollarSign } from 'lucide-svelte';
   import { goto } from '$app/navigation';
 
   let searchQuery = $state('');
@@ -122,7 +122,7 @@
   <section class="py-16 bg-gray-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 class="text-3xl font-bold text-center mb-12">ミセトモの特徴</h2>
-      <div class="grid md:grid-cols-4 gap-6">
+      <div class="grid md:grid-cols-3 gap-6">
         <div class="bg-white p-6 rounded-lg shadow-md text-center">
           <CheckCircle class="h-12 w-12 text-blue-600 mx-auto mb-4" />
           <h3 class="text-xl font-semibold mb-2">事前確認安心</h3>
@@ -132,11 +132,6 @@
           <MessageCircle class="h-12 w-12 text-blue-600 mx-auto mb-4" />
           <h3 class="text-xl font-semibold mb-2">充実のコミュニケーション</h3>
           <p class="text-gray-600">採用担当者と事前にやり取りでき、不安を解消</p>
-        </div>
-        <div class="bg-white p-6 rounded-lg shadow-md text-center">
-          <Shield class="h-12 w-12 text-blue-600 mx-auto mb-4" />
-          <h3 class="text-xl font-semibold mb-2">信頼の企業のみ掲載</h3>
-          <p class="text-gray-600">厳選された優良企業の求人のみを紹介</p>
         </div>
         <div class="bg-white p-6 rounded-lg shadow-md text-center">
           <Clock class="h-12 w-12 text-blue-600 mx-auto mb-4" />
