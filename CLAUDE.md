@@ -2,6 +2,9 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## 重要なドキュメント
+- **[ARCHITECTURE.md](./ARCHITECTURE.md)** - プロジェクト全体のアーキテクチャ設計（モノレポ構成、マイクロサービス戦略、Firebase App Hosting設定など）
+
 # プロジェクト設定
 - SvelteKitを使ってWebサービスを構築する
 - 新規プロジェクトのため、SvelteKitの初期セットアップから始める
@@ -48,7 +51,11 @@ npm run lint
 npm run format
 ```
 
-## プロジェクト構造（推奨）
+## プロジェクト構造
+⚠️ **注意**: このプロジェクトはモノレポ構成への移行を予定しています。
+詳細は[ARCHITECTURE.md](./ARCHITECTURE.md)を参照してください。
+
+### 現在の構造（移行前）
 ```
 misetomo/
 ├── src/
@@ -64,6 +71,9 @@ misetomo/
 ├── tests/              # テストファイル
 └── package.json        # 依存関係とスクリプト
 ```
+
+### 移行後の構造
+[ARCHITECTURE.md](./ARCHITECTURE.md#ディレクトリ構造)を参照
 
 ## Firebase統合
 - Firebase設定はグローバルCLAUDE.mdの指示に従う
