@@ -1,6 +1,6 @@
 <script lang="ts">
   import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
-  import { auth } from '$lib/firebase/config';
+  import { auth } from '@misetomo/shared/firebase';
   import { goto } from '$app/navigation';
   import { Mail, Lock, AlertCircle } from 'lucide-svelte';
   

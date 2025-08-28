@@ -1,12 +1,12 @@
 <script lang="ts">
   import '../app.css';
-  import { user, authInitialized } from '$lib/stores/auth';
-  import { userProfile, fetchUserProfile } from '$lib/stores/userStore';
+  import { user, authInitialized } from '@misetomo/shared/stores';
+  import { userProfile, fetchUserProfile } from '@misetomo/shared/stores';
   import { onMount } from 'svelte';
   import { page } from '$app/stores';
   import { Home, Search, MessageSquare, User, LogOut, Briefcase } from 'lucide-svelte';
   import { signOut } from 'firebase/auth';
-  import { auth } from '$lib/firebase/config';
+  import { auth } from '@misetomo/shared/firebase';
   import { goto } from '$app/navigation';
 
   let { children } = $props();

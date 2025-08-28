@@ -1,6 +1,6 @@
 import { writable, derived } from 'svelte/store';
 import type { User } from 'firebase/auth';
-import { auth } from '$lib/firebase/config';
+import { auth } from '@misetomo/shared/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import { browser } from '$app/environment';
 

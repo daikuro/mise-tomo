@@ -1,6 +1,6 @@
 import { writable, derived } from 'svelte/store';
 import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
-import { db } from '$lib/firebase/config';
+import { db } from '@misetomo/shared/firebase';
 import type { User } from 'firebase/auth';
 
 export interface UserProfile {
