@@ -1,0 +1,25 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // 求職者向けルール
+    match /jobs/{jobId} {
+      allow read: if true;
+      allow write: if request.auth != null && 
+        request.auth.token.role == 'store-owner';
+    }
+    
+    // 管理者向けルール
+    match /stores/{storeId} {
+      allow read, write: if request.auth != null && 
+        request.auth.token.storeId == storeId;
+    }
+    
+    // ユーザープロファイル
+    match /users/{userId} {
+      allow read: if request.auth != null && 
+        request.auth.uid == userId;
+      allow write: if request.auth != null && 
+        request.auth.uid == userId;
+    }
+  }
+}
