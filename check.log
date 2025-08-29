@@ -1,0 +1,9 @@
+
+> misetomo-app@0.0.1 check-errors
+> svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --threshold error
+
+Loading svelte-check in workspace: /Users/dai/IdeaProjects/misetomo/apps/app
+Getting Svelte diagnostics...
+
+====================================
+svelte-check found 0 errors and 2 warnings in 1 file

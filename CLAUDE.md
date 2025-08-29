@@ -55,26 +55,6 @@ npm run format
 ⚠️ **注意**: このプロジェクトはモノレポ構成への移行を予定しています。
 詳細は[ARCHITECTURE.md](./ARCHITECTURE.md)を参照してください。
 
-### 現在の構造（移行前）
-```
-misetomo/
-├── src/
-│   ├── routes/          # SvelteKitのページとAPI
-│   ├── lib/            # 共有コンポーネントとユーティリティ
-│   │   ├── components/ # UIコンポーネント
-│   │   ├── stores/     # Svelteストア
-│   │   ├── utils/      # ヘルパー関数
-│   │   └── firebase/   # Firebase設定
-│   ├── app.html        # HTMLテンプレート
-│   └── app.css         # グローバルスタイル
-├── static/             # 静的ファイル
-├── tests/              # テストファイル
-└── package.json        # 依存関係とスクリプト
-```
-
-### 移行後の構造
-[ARCHITECTURE.md](./ARCHITECTURE.md#ディレクトリ構造)を参照
-
 ## Firebase統合
 - Firebase設定はグローバルCLAUDE.mdの指示に従う
 - 認証にはFirebase AuthのsignInWithPopupを使用

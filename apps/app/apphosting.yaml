@@ -10,4 +10,4 @@ runConfig:
   concurrency: 100
 
 buildConfig:
-  buildCommand: "npm run build"
+  buildCommand: "cd apps/app && npm install && npm run build"
