@@ -8,3 +8,6 @@ runConfig:
   cpu: 1
   memoryMiB: 512
   concurrency: 100
+
+buildConfig:
+  buildCommand: "npm run build"
