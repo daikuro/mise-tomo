@@ -10,11 +10,9 @@ const config = {
 	kit: {
 		// adapter-node for Firebase App Hosting
 		adapter: adapter({
-			// Use environment variable PORT, defaulting to 8080 for Firebase App Hosting
-			env: {
-				port: 'PORT',
-				host: 'HOST'
-			}
+			// Firebase App Hosting configuration
+			// The application will use PORT environment variable (Firebase sets it to 8080)
+			// No default port is needed as Firebase always provides PORT
 		}),
 		alias: {
 			'@misetomo/shared': '../../packages/shared/src',

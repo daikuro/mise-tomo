@@ -3,6 +3,10 @@ env:
     value: "customer"
   - variable: NODE_ENV
     value: "production"
+  - variable: PORT
+    value: "8080"
+  - variable: HOST
+    value: "0.0.0.0"
 
 runConfig:
   cpu: 1
