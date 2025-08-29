@@ -1,11 +1,11 @@
 <script lang="ts">
   import { createUserWithEmailAndPassword, updateProfile, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
-  import { auth } from '@misetomo/shared/firebase';
+  import { auth } from '$lib/shared/firebase';
   import { goto } from '$app/navigation';
   import { page } from '$app/stores';
   import { Mail, Lock, User, AlertCircle, Building, Briefcase } from 'lucide-svelte';
   import { setDoc, doc } from 'firebase/firestore';
-  import { db } from '@misetomo/shared/firebase';
+  import { db } from '$lib/shared/firebase';
   
   let email = $state('');
   let password = $state('');
