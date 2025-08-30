@@ -4,23 +4,28 @@
 
 ### マイクロサービスアーキテクチャの採用
 
-本プロジェクトでは、求職者向けサービスと店舗管理画面を独立したアプリケーションとして開発・デプロイすることで、真のマイクロサービスアーキテクチャを実現します。
+本プロジェクトでは、各ユーザー層向けのサービスを独立したアプリケーションとして開発・デプロイすることで、真のマイクロサービスアーキテクチャを実現します。
 
 ## ディレクトリ構造
 
 ```
 misetomo/                    # モノレポルート
 ├── apps/
-│   ├── app/                # 求職者向けアプリ
+│   ├── app/                # 求職者向けアプリ（メインサービス）
 │   │   ├── src/
 │   │   ├── package.json
 │   │   ├── apphosting.yaml
 │   │   └── CLAUDE.md       # アプリ固有の指示
-│   └── admin/              # 店舗管理画面
+│   ├── admin/              # サイト全体管理者向け管理画面
+│   │   ├── src/
+│   │   ├── package.json
+│   │   ├── apphosting.yaml
+│   │   └── CLAUDE.md       # 管理画面固有の指示
+│   └── company/            # 店舗経営者向け管理画面
 │       ├── src/
 │       ├── package.json
 │       ├── apphosting.yaml
-│       └── CLAUDE.md       # 管理画面固有の指示
+│       └── CLAUDE.md       # 店舗管理画面固有の指示
 ├── packages/
 │   └── shared/             # 共通コード
 │       ├── src/
@@ -32,6 +37,37 @@ misetomo/                    # モノレポルート
 ├── CLAUDE.md              # プロジェクト全体の指示
 └── ARCHITECTURE.md        # このファイル
 ```
+
+## アプリケーション構成
+
+### 1. app（求職者向けアプリ）
+- **対象**: 求職者・一般ユーザー
+- **主要機能**:
+  - 求人検索・閲覧
+  - 応募管理
+  - プロフィール管理
+  - お気に入り機能
+- **URL**: app.misetomo.com
+
+### 2. admin（サイト全体管理者向け）
+- **対象**: システム管理者・運営チーム
+- **主要機能**:
+  - ユーザー管理（求職者・店舗両方）
+  - システム全体のダッシュボード
+  - コンテンツ管理
+  - 利用統計・分析
+  - システム設定
+- **URL**: admin.misetomo.com
+
+### 3. company（店舗経営者向け）
+- **対象**: 飲食店経営者・店舗オーナー
+- **主要機能**:
+  - 求人掲載・管理
+  - 応募者管理
+  - 店舗情報管理
+  - 採用プロセス管理
+  - 店舗運営支援機能（売上分析、在庫管理、スタッフ管理など）
+- **URL**: company.misetomo.com
 
 ## Git管理戦略
 
@@ -61,14 +97,19 @@ Firebase App Hostingの2024年7月アップデートにより、モノレポか�
 firebase apphosting:backends:create --project [project-name]
 # Root directory: apps/app
 
-# 管理画面のバックエンド作成
+# サイト管理者向けのバックエンド作成
 firebase apphosting:backends:create --project [project-name]
 # Root directory: apps/admin
+
+# 店舗経営者向けのバックエンド作成
+firebase apphosting:backends:create --project [project-name]
+# Root directory: apps/company
 ```
 
 #### デプロイ設定
 - `misetomo-app-backend`: 求職者向け（apps/app）
-- `misetomo-admin-backend`: 管理画面（apps/admin）
+- `misetomo-admin-backend`: サイト管理者向け（apps/admin）
+- `misetomo-company-backend`: 店舗経営者向け（apps/company）
 
 ### apphosting.yaml設定
 
@@ -85,6 +126,14 @@ runConfig:
 env:
   - variable: APP_TYPE
     value: "admin"
+runConfig:
+  cpu: 1
+  memoryMiB: 512
+
+# apps/company/apphosting.yaml
+env:
+  - variable: APP_TYPE
+    value: "company"
 runConfig:
   cpu: 1
   memoryMiB: 512
@@ -112,6 +161,14 @@ on:
     paths:
       - 'apps/admin/**'
       - 'packages/shared/**'
+
+# .github/workflows/deploy-company.yml
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'apps/company/**'
+      - 'packages/shared/**'
 ```
 
 ## Firebase設定
@@ -120,7 +177,8 @@ on:
 - **単一Firebaseプロジェクト**を使用
 - **異なるHostingサイト**でアプリを分離
   - app.misetomo.com: 求職者向け
-  - admin.misetomo.com: 管理画面
+  - admin.misetomo.com: サイト管理者向け
+  - company.misetomo.com: 店舗経営者向け
 
 ### Firestoreセキュリティ戦略
 ```javascript
@@ -132,21 +190,31 @@ service cloud.firestore {
     match /jobs/{jobId} {
       allow read: if true;
       allow write: if request.auth != null && 
-        request.auth.token.role == 'store-owner';
+        (request.auth.token.role == 'company' || 
+         request.auth.token.role == 'admin');
     }
     
-    // 管理者向けルール
+    // 店舗データルール
     match /stores/{storeId} {
-      allow read, write: if request.auth != null && 
-        request.auth.token.storeId == storeId;
+      allow read: if true;
+      allow write: if request.auth != null && 
+        (request.auth.token.storeId == storeId ||
+         request.auth.token.role == 'admin');
+    }
+    
+    // システム管理データ
+    match /system/{document} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null && 
+        request.auth.token.role == 'admin';
     }
   }
 }
 ```
 
 ### カスタムクレームによる権限管理
-- `role`: ユーザーの役割（customer, store-owner, admin）
-- `storeId`: 店舗オーナーの店舗ID
+- `role`: ユーザーの役割（customer, company, admin）
+- `storeId`: 店舗経営者の店舗ID
 
 ## 技術スタック
 
@@ -183,9 +251,10 @@ service cloud.firestore {
 
 1. **Phase 1**: 現在の求職者向けアプリを`apps/app`に移動
 2. **Phase 2**: `packages/shared`を作成し、共通コードを抽出
-3. **Phase 3**: `apps/admin`で管理画面を新規開発
-4. **Phase 4**: Firebase App Hostingで両アプリをデプロイ
-5. **Phase 5**: CI/CDパイプラインの構築
+3. **Phase 3**: `apps/admin`でサイト管理画面を新規開発
+4. **Phase 4**: `apps/company`で店舗管理画面を新規開発
+5. **Phase 5**: Firebase App Hostingで全アプリをデプロイ
+6. **Phase 6**: CI/CDパイプラインの構築
 
 ## Claude Codeでの開発
 
@@ -201,4 +270,5 @@ Claude Codeは全体構造を把握し、適切なディレクトリで作業を
 
 ## 更新履歴
 
+- 2025-08-29: 3つのアプリケーション構成に更新（app, admin, company）
 - 2025-08-28: 初版作成
