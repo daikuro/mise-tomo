@@ -1,0 +1,12 @@
+env:
+  - variable: APP_TYPE
+    value: "company"
+  - variable: PORT
+    value: "8080"
+
+runConfig:
+  cpu: 1
+  memoryMiB: 512
+  minInstances: 0
+  maxInstances: 4
+  concurrency: 100
