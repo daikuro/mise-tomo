@@ -29,7 +29,7 @@
 </script>
 
 <svelte:head>
-  <title>ミセトモ - 地域で見つかる短期のお仕事</title>
+  <title>ミセトモ - 地域で見つかるスキマ時間のお仕事</title>
 </svelte:head>
 
 <div class="min-h-screen bg-gray-50">
@@ -42,7 +42,7 @@
             <Briefcase class="h-8 w-8 text-blue-600" />
             <span class="font-bold text-xl text-gray-900">ミセトモ</span>
           </a>
-          <span class="ml-2 text-sm text-gray-500">地域で見つかる、短期のお仕事</span>
+          <span class="ml-2 text-sm text-gray-500">地域で見つかる、スキマ時間のお仕事</span>
         </div>
         
         <nav class="flex items-center space-x-4">
