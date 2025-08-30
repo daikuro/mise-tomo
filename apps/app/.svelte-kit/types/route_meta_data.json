@@ -3,5 +3,6 @@
 	"/auth/login": [],
 	"/auth/register": [],
 	"/jobs": [],
+	"/jobs/apply": [],
 	"/jobs/[id]": []
 }

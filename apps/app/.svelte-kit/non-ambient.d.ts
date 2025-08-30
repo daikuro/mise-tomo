@@ -27,7 +27,7 @@ export {};
 
 declare module "$app/types" {
 	export interface AppTypes {
-		RouteId(): "/" | "/auth" | "/auth/login" | "/auth/register" | "/jobs" | "/jobs/[id]";
+		RouteId(): "/" | "/auth" | "/auth/login" | "/auth/register" | "/jobs" | "/jobs/apply" | "/jobs/[id]";
 		RouteParams(): {
 			"/jobs/[id]": { id: string }
 		};
@@ -37,9 +37,10 @@ declare module "$app/types" {
 			"/auth/login": Record<string, never>;
 			"/auth/register": Record<string, never>;
 			"/jobs": { id?: string };
+			"/jobs/apply": Record<string, never>;
 			"/jobs/[id]": { id: string }
 		};
-		Pathname(): "/" | "/auth" | "/auth/" | "/auth/login" | "/auth/login/" | "/auth/register" | "/auth/register/" | "/jobs" | "/jobs/" | `/jobs/${string}` & {} | `/jobs/${string}/` & {};
+		Pathname(): "/" | "/auth" | "/auth/" | "/auth/login" | "/auth/login/" | "/auth/register" | "/auth/register/" | "/jobs" | "/jobs/" | "/jobs/apply" | "/jobs/apply/" | `/jobs/${string}` & {} | `/jobs/${string}/` & {};
 		ResolvedPathname(): `${"" | `/${string}`}${ReturnType<AppTypes['Pathname']>}`;
 		Asset(): "/robots.txt" | string & {};
 	}
