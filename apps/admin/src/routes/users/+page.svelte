@@ -53,13 +53,13 @@
 		}
 	];
 
-	$: filteredUsers = users.filter(user => {
+	let filteredUsers = $derived(users.filter(user => {
 		const matchesSearch = user.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
 							  user.email.toLowerCase().includes(searchQuery.toLowerCase());
 		const matchesRole = selectedRole === 'all' || user.role === selectedRole;
 		const matchesStatus = selectedStatus === 'all' || user.status === selectedStatus;
 		return matchesSearch && matchesRole && matchesStatus;
-	});
+	}));
 
 	function getRoleBadgeClass(role: string) {
 		switch (role) {

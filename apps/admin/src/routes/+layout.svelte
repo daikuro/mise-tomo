@@ -31,7 +31,7 @@
 		{ path: '/settings', label: '設定', icon: Settings }
 	];
 
-	$: currentPath = $page.url.pathname;
+	let currentPath = $derived($page.url.pathname);
 </script>
 
 <div class="layout">
